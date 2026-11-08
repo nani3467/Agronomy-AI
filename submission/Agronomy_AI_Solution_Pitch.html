@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Agronomy AI — Solution Pitch | Gnani AI Challenge</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 7mm 9mm 6mm 9mm;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1f2937;
+    background: #ffffff;
+    font-size: 8.5pt;
+    line-height: 1.25;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page-container {
+    width: 100%;
+    max-width: 192mm;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5.5px;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #15803d;
+    padding-bottom: 4px;
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #15803d, #047857);
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 16pt;
+  }
+  .title-group h1 {
+    font-size: 15pt;
+    font-weight: 800;
+    color: #0f3a1f;
+    letter-spacing: -0.3px;
+    line-height: 1.1;
+  }
+  .title-group .tagline {
+    font-size: 8pt;
+    font-weight: 600;
+    color: #15803d;
+  }
+  .header-right {
+    text-align: right;
+  }
+  .challenge-badge {
+    display: inline-block;
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    color: #166534;
+    font-size: 7.2pt;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .repo-link {
+    font-size: 7.2pt;
+    color: #4b5563;
+    margin-top: 1px;
+  }
+  .repo-link a {
+    color: #047857;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  /* Grid layouts */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 6px;
+  }
+  .card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 6px 8px;
+  }
+  .card-problem {
+    background: #fffafa;
+    border-color: #fecaca;
+  }
+  .card-solution {
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+  }
+
+  .section-label {
+    font-size: 7.2pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .label-red { color: #b91c1c; }
+  .label-green { color: #15803d; }
+  .label-gnani { color: #047857; }
+  .label-dark { color: #111827; }
+
+  /* Bullets */
+  .bullet-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5px;
+  }
+  .bullet-list li {
+    position: relative;
+    padding-left: 10px;
+    font-size: 7.6pt;
+    color: #374151;
+  }
+  .bullet-list li::before {
+    content: "•";
+    position: absolute;
+    left: 1px;
+    font-weight: bold;
+  }
+  .bullet-list.problem-bullets li::before { color: #dc2626; }
+  .bullet-list.solution-bullets li::before { color: #16a34a; }
+
+  /* GNANI AI HIGHLIGHT SECTION (HERO) */
+  .gnani-hero-container {
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #f0f9ff 100%);
+    border: 1.5px solid #86efac;
+    border-radius: 7px;
+    padding: 6px 9px 5px 9px;
+    box-shadow: 0 1px 3px rgba(16, 185, 129, 0.08);
+  }
+  .gnani-hero-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  .gnani-title {
+    font-size: 8.4pt;
+    font-weight: 800;
+    color: #065f46;
+    letter-spacing: 0.2px;
+  }
+  .gnani-subbadge {
+    background: #047857;
+    color: #ffffff;
+    font-size: 6.8pt;
+    font-weight: 700;
+    padding: 1.5px 6px;
+    border-radius: 9px;
+  }
+
+  .gnani-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 5px;
+  }
+  .speech-card {
+    background: #ffffff;
+    border-radius: 5px;
+    padding: 5px 7px;
+    border-left: 3px solid;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .card-stt {
+    border-left-color: #0284c7;
+    border-top: 1px solid #e0f2fe;
+    border-right: 1px solid #e0f2fe;
+    border-bottom: 1px solid #e0f2fe;
+  }
+  .card-tts {
+    border-left-color: #10b981;
+    border-top: 1px solid #d1fae5;
+    border-right: 1px solid #d1fae5;
+    border-bottom: 1px solid #d1fae5;
+  }
+  .speech-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+  }
+  .speech-card-title {
+    font-size: 7.8pt;
+    font-weight: 800;
+  }
+  .stt-title { color: #0369a1; }
+  .tts-title { color: #047857; }
+  .tech-pill {
+    font-size: 6.4pt;
+    font-weight: 700;
+    padding: 1px 4px;
+    border-radius: 4px;
+  }
+  .pill-stt { background: #e0f2fe; color: #0369a1; }
+  .pill-tts { background: #d1fae5; color: #065f46; }
+
+  /* Workflow diagram */
+  .workflow-strip {
+    background: #ffffff;
+    border: 1px solid #bbf7d0;
+    border-radius: 5px;
+    padding: 3.5px 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3px;
+  }
+  .wf-step {
+    flex: 1;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 2.5px 3px;
+    text-align: center;
+    min-height: 27px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .wf-step.wf-gnani-stt {
+    background: #f0f9ff;
+    border-color: #7dd3fc;
+  }
+  .wf-step.wf-gnani-tts {
+    background: #ecfdf5;
+    border-color: #6ee7b7;
+  }
+  .wf-step.wf-ai {
+    background: #fefce8;
+    border-color: #fde047;
+  }
+  .wf-label {
+    font-size: 6.2pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #475569;
+    line-height: 1;
+    margin-bottom: 1px;
+  }
+  .wf-gnani-stt .wf-label { color: #0284c7; }
+  .wf-gnani-tts .wf-label { color: #059669; }
+  .wf-ai .wf-label { color: #b45309; }
+  .wf-desc {
+    font-size: 6.6pt;
+    color: #1e293b;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+  .wf-arrow {
+    color: #059669;
+    font-size: 8.5pt;
+    font-weight: 800;
+  }
+
+  /* Key Features Grid */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+  }
+  .feat-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 5px;
+    padding: 4px 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5px;
+  }
+  .feat-title {
+    font-size: 7.4pt;
+    font-weight: 700;
+    color: #166534;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .feat-desc {
+    font-size: 6.8pt;
+    color: #4b5563;
+    line-height: 1.2;
+  }
+  .status-tag {
+    font-size: 5.8pt;
+    font-weight: 700;
+    padding: 0.5px 3.5px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+  .tag-live { background: #dcfce7; color: #15803d; }
+  .tag-wip { background: #fef3c7; color: #b45309; }
+
+  /* Bottom Row: Tech Stack & Impact/Future */
+  .grid-bottom {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 6px;
+  }
+  .tech-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 6.7pt;
+  }
+  .tech-table td {
+    padding: 1.8px 4px;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  .tech-cat {
+    font-weight: 700;
+    color: #374151;
+    width: 28%;
+  }
+  .tech-val {
+    color: #1f2937;
+  }
+  .tech-val strong {
+    color: #047857;
+  }
+
+  /* Footer */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 3px;
+    font-size: 6.8pt;
+    color: #6b7280;
+  }
+  .footer-left strong { color: #166534; }
+  .footer-right strong { color: #1f2937; }
+</style>
+</head>
+<body>
+<div class="page-container">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo-icon">🌿</div>
+      <div class="title-group">
+        <h1>AGRONOMY AI</h1>
+        <div class="tagline">Your Intelligent Voice-First Agricultural Assistant</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="challenge-badge">Great Indian AI Internship Challenge – Gnani AI</div>
+      <div class="repo-link">GitHub: <a href="https://github.com/nani3467/Plant-Disease-Detection">github.com/nani3467/Plant-Disease-Detection</a></div>
+    </div>
+  </header>
+
+  <!-- PROBLEM & SOLUTION ROW -->
+  <div class="grid-2">
+    <div class="card card-problem">
+      <div class="section-label label-red">⚠️ Section 1: The Problem</div>
+      <ul class="bullet-list problem-bullets">
+        <li><strong>Early Disease Detection:</strong> Farmers struggle to identify crop infections early, risking severe yield loss and costly late interventions.</li>
+        <li><strong>Complex Crop Selection:</strong> Selecting optimal crops requires intricate soil NPK balancing, pH understanding, and climate matching.</li>
+        <li><strong>Information Barriers:</strong> Fragmented access to scientific ICAR agronomy guidelines leaves farmers dependent on hearsay.</li>
+        <li><strong>Digital Literacy & Language Gap:</strong> Traditional typing-heavy apps fail rural farmers due to script and literacy barriers.</li>
+      </ul>
+    </div>
+    <div class="card card-solution">
+      <div class="section-label label-green">🌱 Section 2: Our Solution</div>
+      <ul class="bullet-list solution-bullets">
+        <li><strong>Voice-First Accessibility:</strong> Hands-free voice interface in native Indian languages powered by Gnani AI speech engines.</li>
+        <li><strong>AI Vision Diagnostics:</strong> Instant leaf disease detection across 38 classes via deep learning MobileNetV2.</li>
+        <li><strong>Intelligent Crop Recommendation:</strong> Data-driven soil and climate matching for 22 crops using trained Random Forest ML.</li>
+        <li><strong>ICAR-Grounded Guidance:</strong> 5-part actionable reports covering organic remedies, approved chemicals, dosages, and safety PPE.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECTION 3: GNANI AI INTEGRATION (MAIN HIGHLIGHT & HERO) -->
+  <section class="gnani-hero-container">
+    <div class="gnani-hero-header">
+      <div class="gnani-title">🎙️ SECTION 3: GNANI AI INTEGRATION — CORE SPEECH ENGINE & ACCESSIBILITY HERO</div>
+      <div class="gnani-subbadge">Verified Backend Vachana REST API Integration</div>
+    </div>
+
+    <div class="gnani-cards-grid">
+      <!-- PRISMA STT CARD -->
+      <div class="speech-card card-stt">
+        <div class="speech-card-header">
+          <div class="speech-card-title stt-title">GNANI PRISMA | SPEECH-TO-TEXT</div>
+          <span class="tech-pill pill-stt">Model: prisma-v3.0</span>
+        </div>
+        <ul class="bullet-list">
+          <li><strong>Spoken Query Conversion:</strong> Converts farmer's raw microphone audio (WAV/WebM) into high-accuracy text at <code>api.vachana.ai/stt/v3</code>.</li>
+          <li><strong>Multilingual Speech Recognition:</strong> Built-in Indian vernacular support for Telugu (<code>te-IN</code>), Hindi (<code>hi-IN</code>), and English (<code>en-IN</code>) with auto-detection.</li>
+          <li><strong>Typing-Free Navigation:</strong> Empowers farmers to issue hands-free voice commands, navigate pages, and trigger ML workflows without typing.</li>
+        </ul>
+      </div>
+
+      <!-- TIMBRE TTS CARD -->
+      <div class="speech-card card-tts">
+        <div class="speech-card-header">
+          <div class="speech-card-title tts-title">GNANI TIMBRE | TEXT-TO-SPEECH</div>
+          <span class="tech-pill pill-tts">Model: timbre-v3.0</span>
+        </div>
+        <ul class="bullet-list">
+          <li><strong>Spoken Agricultural Guidance:</strong> Synthesizes AI diagnosis & advice into natural, human-sounding speech via <code>api.vachana.ai/api/v1/tts/inference</code>.</li>
+          <li><strong>Native Vernacular Voices:</strong> Dynamic voice allocation—Lakshmi (Telugu), Shivani (Hindi), and Avinash (Indian English).</li>
+          <li><strong>Acoustic Optimization:</strong> Converts 24kHz linear PCM to valid RIFF WAV with broadcast loudness normalization (-14 dBFS) & HTML5 repair.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- WORKFLOW DIAGRAM -->
+    <div class="workflow-strip">
+      <div class="wf-step">
+        <span class="wf-label">1. Input</span>
+        <span class="wf-desc">Farmer Speaks Voice Query</span>
+      </div>
+      <span class="wf-arrow">→</span>
+      <div class="wf-step wf-gnani-stt">
+        <span class="wf-label">2. Gnani Prisma STT</span>
+        <span class="wf-desc">Transcribes Audio to Vernacular Text</span>
+      </div>
+      <span class="wf-arrow">→</span>
+      <div class="wf-step wf-ai">
+        <span class="wf-label">3. Agronomy AI & Gemini</span>
+        <span class="wf-desc">Parses Intent & Formulates Agronomic Advice</span>
+      </div>
+      <span class="wf-arrow">→</span>
+      <div class="wf-step wf-gnani-tts">
+        <span class="wf-label">4. Gnani Timbre TTS</span>
+        <span class="wf-desc">Synthesizes High-Quality Spoken Audio</span>
+      </div>
+      <span class="wf-arrow">→</span>
+      <div class="wf-step">
+        <span class="wf-label">5. Output</span>
+        <span class="wf-desc">Farmer Hears Actionable Guidance</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: KEY FEATURES -->
+  <section class="card" style="padding: 5px 8px;">
+    <div class="section-label label-dark" style="margin-bottom: 3.5px;">⚡ Section 4: Key Platform Features</div>
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-title"><span>🦠 Plant Disease Detection</span> <span class="status-tag tag-live">Verified ML</span></div>
+        <div class="feat-desc">Upload leaf photos to detect 38 plant disease classes across 14+ crops via PyTorch MobileNetV2 with non-plant heuristic filtering.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-title"><span>🌾 Crop Recommendation</span> <span class="status-tag tag-live">Verified ML</span></div>
+        <div class="feat-desc">Recommends optimal crop out of 22 varieties based on soil N-P-K, pH, temperature, humidity, and rainfall using Random Forest (99.5% accuracy).</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-title"><span>📖 Botanical & Crop Guides</span> <span class="status-tag tag-live">Verified</span></div>
+        <div class="feat-desc">Comprehensive database of 22 crop manuals and 38 disease dossiers containing symptoms, pathogen info, and seasonal cultivation requirements.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-title"><span>🎙️ Voice-First Assistant</span> <span class="status-tag tag-live">Verified</span></div>
+        <div class="feat-desc">Floating Voice OS assistant integrating Gnani Prisma STT and Timbre TTS for hands-free audio recording, intent execution, and voice playback.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-title"><span>🌐 Multilingual Fluency</span> <span class="status-tag tag-live">Verified</span></div>
+        <div class="feat-desc">Full end-to-end support for English, Telugu (తెలుగు), and Hindi (हिन्दी) across voice recognition, reasoning, and speech synthesis.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-title"><span>🧪 Fertilizer & IoT Scouting</span> <span class="status-tag tag-wip">In Development</span></div>
+        <div class="feat-desc">Interactive deficiency guide live; automated IoT telemetry sensors and drone aerial multispectral mapping currently under active development.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROW: TECH STACK (SEC 5) & IMPACT / FUTURE SCOPE (SEC 6) -->
+  <div class="grid-bottom">
+    <!-- TECH STACK -->
+    <div class="card" style="padding: 4px 7px;">
+      <div class="section-label label-dark">🛠️ Section 5: Verified Technology Stack</div>
+      <table class="tech-table">
+        <tr><td class="tech-cat">Speech AI</td><td class="tech-val"><strong>Gnani AI Prisma v3.0</strong> (STT) & <strong>Timbre v3.0</strong> (TTS) via Vachana API</td></tr>
+        <tr><td class="tech-cat">Frontend</td><td class="tech-val">Next.js 14.0.4, React 18, TypeScript 5, Tailwind CSS 3.3, Axios, jsPDF</td></tr>
+        <tr><td class="tech-cat">Backend</td><td class="tech-val">Django 5.2.5, Django REST Framework 3.15.2, Python 3.11, Gunicorn</td></tr>
+        <tr><td class="tech-cat">Database</td><td class="tech-val">MongoDB Atlas / Community via <code>django-mongodb-backend</code></td></tr>
+        <tr><td class="tech-cat">ML Models</td><td class="tech-val">PyTorch MobileNetV2 (38 diseases), scikit-learn Random Forest (22 crops)</td></tr>
+        <tr><td class="tech-cat">Reasoning</td><td class="tech-val">Google Gemini (<code>gemini-2.5-flash</code> via <code>google-genai</code>) + Local ICAR Rules</td></tr>
+      </table>
+    </div>
+
+    <!-- IMPACT & FUTURE SCOPE -->
+    <div class="card" style="padding: 4px 7px;">
+      <div class="section-label label-green">🎯 Section 6: Impact & Future Scope</div>
+      <ul class="bullet-list solution-bullets">
+        <li><strong>Bridges Rural Digital Divide:</strong> Enables farmers of any literacy level to access advanced AI diagnostics using natural spoken dialects.</li>
+        <li><strong>Prevents Catastrophic Crop Losses:</strong> Rapid leaf-level diagnosis catches fungal and bacterial blights before widespread infestation.</li>
+        <li><strong>Optimizes Soil Yields:</strong> Scientific NPK-based crop selection maximizes harvest returns and prevents soil nutrient depletion.</li>
+        <li><strong>Future Roadmap:</strong> Real-time IoT soil telemetry integration, offline-capable mobile PWA, and drone aerial multispectral crop scouting.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">
+      <strong>Agronomy AI</strong> • Built for the <strong>Great Indian AI Internship Challenge by Gnani AI</strong>
+    </div>
+    <div class="footer-right">
+      Repository: <strong>https://github.com/nani3467/Plant-Disease-Detection</strong> • Single Page Pitch
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

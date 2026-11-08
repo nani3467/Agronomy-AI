@@ -1,0 +1,44 @@
+# Python / Django
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+backend/venv/
+backend/env/
+.env
+*.env
+*.env.*
+!.env.example
+!.env.production.example
+!.env.local.example
+backend/.env
+backend/.env.production
+backend/staticfiles/
+backend/media/
+*.log
+db.sqlite3
+
+# ML Training Data (keep models, ignore data)
+backend/data/*.csv
+
+# HuggingFace cache (auto-downloaded)
+.cache/huggingface/
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env.local
+frontend/.env*.local
+*.tsbuildinfo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Media
+*.mp4
+*.avi
+*.mov
+Screen Recording.mp4
